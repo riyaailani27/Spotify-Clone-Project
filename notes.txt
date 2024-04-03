@@ -1,0 +1,135 @@
+console.log("Lets write Javascript")
+
+async function getSongs() {
+    let a = await fetch("http://127.0.0.1:3000/songs/");
+    let response = await a.text();
+    console.log(response)
+    let div = document.createElement("div");
+    div.innerHTML = response;
+    let as = div.getElementsByTagName("a");
+    let songs = [];
+    for(let i=0;i<as.length;i++)
+    {
+        const element =as[i];
+        if(element.href.endsWith(".mp3"))
+        {
+            songs.push(element.href.split("/songs/")[1])
+        }
+    }
+    return songs;
+
+}
+
+async function main(){
+//Get the list of all the songs
+let songs = await getSongs();
+console.log(songs);
+
+// Show all the songs in the playlist
+let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0];
+
+for (const song of songs) {
+    songUL.innerHTML = songUL.innerHTML + `<li>
+
+    
+                            <img src="music.svg" alt="" class="invert">
+                        
+                        <div class="info">
+                            <div>${song.replaceAll("%20"," ")}</div>
+                            <div>Riya</div>
+                        </div>
+                        <div class="playnow">
+                            <span>Play Now</span>
+                        <img src="play.svg" alt="" class="invert">
+                    </div>
+
+    
+    </li>`;
+}
+
+
+Explanation for above code snippet
+
+console.log("Lets write Javascript")
+This line logs the message "Lets write Javascript" to the console.
+
+javascript
+Copy code
+async function getSongs() {
+    let a = await fetch("http://127.0.0.1:3000/songs/");
+    let response = await a.text();
+    console.log(response)
+    let div = document.createElement("div");
+    div.innerHTML = response;
+    let as = div.getElementsByTagName("a");
+    let songs = [];
+    for(let i=0;i<as.length;i++)
+    {
+        const element =as[i];
+        if(element.href.endsWith(".mp3"))
+        {
+            songs.push(element.href.split("/songs/")[1])
+        }
+    }
+    return songs;
+}
+This function getSongs() is defined to asynchronously fetch a list of songs from a server. It performs the following steps:
+
+It makes an asynchronous request to the URL "http://127.0.0.1:3000/songs/" using the fetch() function.
+It awaits the response using await, and then reads the response as text.
+The text response is then set as the HTML content of a newly created <div> element.
+It retrieves all <a> elements from the created <div> using getElementsByTagName().
+It iterates through these <a> elements and extracts the URLs of MP3 files, storing them in the songs array.
+Finally, it returns the songs array.
+javascript
+Copy code
+async function main(){
+This line defines an asynchronous function named main(). This function is intended to be the main entry point of the script.
+
+javascript
+Copy code
+//Get the list of all the songs
+let songs = await getSongs();
+console.log(songs);
+Here, the main() function begins by calling the getSongs() function defined earlier to retrieve the list of songs asynchronously. It waits for the songs to be fetched before logging the list of songs to the console.
+
+javascript
+Copy code
+// Show all the songs in the playlist
+let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0];
+This line selects the first <ul> element within an element with the class "songList" and assigns it to the variable songUL. This assumes that there is an element in the HTML with the class "songList" that contains a <ul> element.
+
+javascript
+Copy code
+for (const song of songs) {
+This line begins a loop over each song in the songs array retrieved earlier.
+
+javascript
+Copy code
+songUL.innerHTML = songUL.innerHTML + `<li>
+                            <img src="music.svg" alt="" class="invert">
+                            <div class="info">
+                                <div>${song.replaceAll("%20"," ")}</div>
+                                <div>Riya</div>
+                            </div>
+                            <div class="playnow">
+                                <span>Play Now</span>
+                                <img src="play.svg" alt="" class="invert">
+                            </div>
+                        </li>`;
+Within the loop, this line dynamically generates HTML code for each song and appends it to the inner HTML of the <ul> element (songUL). It creates a list item (<li>) containing an image, information about the song, and a "Play Now" button.
+
+javascript
+Copy code
+}
+This line marks the end of the loop.
+
+That's the explanation of the provided JavaScript code line by line.
+
+
+
+
+
+Message ChatGPT…
+
+ChatGPT can m
